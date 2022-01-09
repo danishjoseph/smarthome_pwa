@@ -1,3 +1,4 @@
+#!/bin/bash
 FROM node:14-alpine
 
 COPY ./build ./build
