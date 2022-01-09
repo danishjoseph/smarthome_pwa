@@ -73,7 +73,7 @@ const Rooms = (props: Props) => {
     event.stopPropagation();
     let val = event.target.checked ? "1" : "0";
     rList[event.target.id].forEach(async (item) => {
-      if(item.cState)
+      if(item.cState !== Number(val))
       await mqtt.sendMessage(`home/${item.id}/onoff`, val);
     });
   };
