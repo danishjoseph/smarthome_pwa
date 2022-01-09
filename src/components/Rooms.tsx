@@ -1,9 +1,9 @@
 import {
   Badge,
   Box,
+  Checkbox,
   Modal,
   Paper,
-  Switch,
   Theme,
   Typography,
 } from "@mui/material";
@@ -13,6 +13,7 @@ import { useAppSelector } from "../hooks";
 import RoomList from "./RoomList";
 import * as mqtt from "../mqtt";
 import { DeviceTree } from "./types";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
 interface Props {
   height: string;
@@ -38,9 +39,9 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
     height: "6em",
     width: "10em",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   modalCard: {
     position: "absolute" as "absolute",
@@ -73,8 +74,8 @@ const Rooms = (props: Props) => {
     event.stopPropagation();
     let val = event.target.checked ? "1" : "0";
     rList[event.target.id].forEach(async (item) => {
-      if(item.cState !== Number(val))
-      await mqtt.sendMessage(`home/${item.id}/onoff`, val);
+      if (item.cState !== Number(val))
+        await mqtt.sendMessage(`home/${item.id}/onoff`, val);
     });
   };
   const handleClose = () => setOpen(false);
@@ -101,6 +102,14 @@ const Rooms = (props: Props) => {
     outline: 1,
   };
 
+  const poweIconStyle = {
+    color: (theme: Theme) => {
+      return theme.palette.mode === "dark"
+        ? theme.palette.success.main
+        : theme.palette.success.light;
+    },
+  } as const;
+
   return (
     <Box>
       <Typography variant="h5" component="h2">
@@ -122,15 +131,21 @@ const Rooms = (props: Props) => {
                   badgeContent={rList[e].filter((e) => e.cState === 1).length}
                   color="primary"
                 >
-                  <Typography variant="body2" align="center" component="h2">
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    component="h2"
+                    lineHeight="2rem"
+                  >
                     {String(e).toLowerCase()}
                   </Typography>
                 </Badge>
-                <Switch
+                <Checkbox
+                  icon={<PowerSettingsNewIcon />}
+                  checkedIcon={<PowerSettingsNewIcon sx={poweIconStyle} />}
                   checked={!!rList[e].filter((e) => e.cState === 1).length}
                   id={e.toString()}
                   onClick={handleToggleChange}
-                  size="small"
                 />
               </Paper>
             );
