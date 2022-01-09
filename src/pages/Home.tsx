@@ -33,7 +33,7 @@ const Home = (props: Props) => {
         Smart Home {connectionStatus ? "connected" : "not Connected"}
       </Typography>
       <Favourites />
-      <Rooms height="200px" title="Rooms"/>
+      <Rooms height="250px" title="Rooms"/>
       <OnlineDevices />
     </Container>
   );

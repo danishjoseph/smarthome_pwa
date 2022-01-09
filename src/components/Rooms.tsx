@@ -1,8 +1,17 @@
-import { Badge, Box, Modal, Paper, Typography } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Modal,
+  Paper,
+  Switch,
+  Theme,
+  Typography,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../hooks";
 import RoomList from "./RoomList";
+import * as mqtt from "../mqtt";
 import { DeviceTree } from "./types";
 
 interface Props {
@@ -10,7 +19,7 @@ interface Props {
   title: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<Theme, Props>((theme) => ({
   iconHover: {
     cursor: "pointer",
     padding: "2px",
@@ -26,9 +35,12 @@ const useStyles = makeStyles({
     overflowY: "hidden",
   }),
   roomCard: {
-    height: "5em",
-    width: "8em",
-    textAlign: "center",
+    height: "6em",
+    width: "10em",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   modalCard: {
     position: "absolute" as "absolute",
@@ -42,16 +54,30 @@ const useStyles = makeStyles({
     p: 2,
     outline: 0,
   },
-});
+  switchIcon: {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+  },
+}));
 
 const Rooms = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<keyof DeviceTree>("");
+
   const handleOpen = (e: keyof DeviceTree) => {
     setOpen(true);
     setActiveId(e);
   };
+  const handleToggleChange = async (event: any) => {
+    event.stopPropagation();
+    let val = event.target.checked ? "1" : "0";
+    rList[event.target.id].forEach(async (item) => {
+      await mqtt.sendMessage(`home/${item.id}/onoff`, val);
+    });
+  };
   const handleClose = () => setOpen(false);
+
   const classes = useStyles(props);
   const devices = useAppSelector((state) => state.devices);
   const rList: DeviceTree = devices.reduce((a: any, curr: any) => {
@@ -61,6 +87,7 @@ const Rooms = (props: Props) => {
     a[curr.rName].push(curr);
     return a;
   }, {});
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -93,15 +120,17 @@ const Rooms = (props: Props) => {
                 <Badge
                   badgeContent={rList[e].filter((e) => e.cState === 1).length}
                   color="primary"
-                />
-                <Typography
-                  variant="body2"
-                  lineHeight="5em"
-                  align="center"
-                  component="h2"
                 >
-                  {String(e).toLowerCase()}
-                </Typography>
+                  <Typography variant="body2" align="center" component="h2">
+                    {String(e).toLowerCase()}
+                  </Typography>
+                </Badge>
+                <Switch
+                  checked={!!rList[e].filter((e) => e.cState === 1).length}
+                  id={e.toString()}
+                  onClick={handleToggleChange}
+                  size="small"
+                />
               </Paper>
             );
           })

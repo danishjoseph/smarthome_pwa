@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     marginTop: "1em",
     "& > *": {
-      flex: "0 1 4em",
+      flex: "0 1 4.5em",
     },
   },
 });
