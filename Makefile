@@ -1,3 +1,5 @@
+react_build: 
+	npm run build
 push: 
 	docker build -t danishjoseph/smarthome_ui:latest .
 publish:
