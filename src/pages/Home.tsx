@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import OnlineDevices from "../components/OnlineDevices";
 import Favourites from "../components/Favourites";
 import Rooms from "../components/Rooms";
@@ -32,9 +32,9 @@ const Home = (props: Props) => {
       <Typography variant="h4" align="center" margin={6}>
         Smart Home {connectionStatus ? "connected" : "not Connected"}
       </Typography>
-      <Favourites />
-      <Rooms height="250px" title="Rooms"/>
-      <OnlineDevices />
+        <Favourites />
+        <Rooms height="250px" title="Rooms" />
+        <OnlineDevices />
     </Container>
   );
 };

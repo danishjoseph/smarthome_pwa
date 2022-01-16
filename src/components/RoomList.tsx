@@ -7,7 +7,6 @@ import SwitchIcon from "./SwitchIcon";
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(2),
-  alignContent: "center",
 }));
 
 interface Props {
@@ -20,7 +19,7 @@ const RoomList = (props: Props) => {
       {props.list.map((item, index) => (
         <Grid item xs={6} key={item.id}>
           <Item>
-            <SwitchIcon key={item.id} label={item} />
+            <SwitchIcon key={item.id} label={item} hideRoomName />
           </Item>
         </Grid>
       ))}

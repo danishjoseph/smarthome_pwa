@@ -7,6 +7,7 @@ import { useState } from "react";
 import DeviceList from "./DeviceList";
 import { Device } from "./types";
 import { useAppSelector } from "../hooks";
+import FavouritesModal from "./FavouritesModal";
 
 const useStyles = makeStyles({
   iconHover: {
@@ -44,10 +45,9 @@ const Favourites = (props: Props) => {
   const [open, setOpen] = useState(false);
   const favDevices: string[] =
     JSON.parse(localStorage.getItem("favDevices") as string) || [];
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const devices: Device[] = useAppSelector((state) => state.devices);
+  const handleOpen = () => setOpen(!open);
 
+  const devices: Device[] = useAppSelector((state) => state.devices);
   // eslint-disable-next-line array-callback-return
   const favorites = devices.filter((item) => favDevices.includes(item.id));
   const classes = useStyles();
@@ -72,19 +72,7 @@ const Favourites = (props: Props) => {
           })
         )}
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add or Remove
-          </Typography>
-          <DeviceList />
-        </Box>
-      </Modal>
+      <FavouritesModal showModal={open} onClose={() => setOpen(false)} />
     </Box>
   );
 };

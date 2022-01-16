@@ -11,6 +11,7 @@ interface Props {
     dName: string;
     cState: number;
   };
+  hideRoomName? : boolean
 }
 
 const IOSSwitch = styled((props: SwitchProps) => (
@@ -86,29 +87,33 @@ const SwitchIcon = (props: Props) => {
     setChecked(Boolean(event.target.checked));
   };
   return (
-      <div className={classes.switchCard}>
-        <IOSSwitch
-          checked={checked}
-          value={props.label?.id}
-          onChange={handleChange}
-        />
-        {props.label && (
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0.5rem 0",
-            }}
-          >
-            <Typography variant="caption">{props.label.rName}</Typography>
-            <Typography variant="caption" align="center">
-              {props.label.dName}
-            </Typography>
-          </Box>
-        )}
-      </div>
+    <div className={classes.switchCard}>
+      <IOSSwitch
+        checked={checked}
+        value={props.label?.id}
+        onChange={handleChange}
+      />
+      {props.label && (
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0.5rem 0",
+          }}
+        >
+          {props.hideRoomName ? (
+            ""
+          ) : (
+            <Typography variant="subtitle2">{props.label.rName}</Typography>
+          )}
+          <Typography noWrap variant="body1" align="center">
+            {props.label.dName}
+          </Typography>
+        </Box>
+      )}
+    </div>
   );
 };
 
