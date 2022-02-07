@@ -3,10 +3,9 @@ import SpeedDial, { SpeedDialProps } from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SettingsIcon from "@mui/icons-material/Settings";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import SystemUpdateIcon from "@mui/icons-material/SystemUpdate";
+import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
 import HomeIcon from "@mui/icons-material/Home";
 import { useLocation, useNavigate } from "react-router-dom";
 type ColorMode = "light" | "dark";
@@ -23,8 +22,11 @@ const Navigation = (props: Props) => {
 
   const actions = [
     { icon: <HomeIcon />, name: "Home", id: "/" },
-    { icon: <AddBoxIcon />, name: "Add new Device", id: "/add" },
-    { icon: <SystemUpdateIcon />, name: "firmware update", id: "/update" },
+    {
+      icon: <SettingsInputComponentIcon />,
+      name: "Configure Device",
+      id: "/configure",
+    },
     {
       icon: colorMode === "light" ? <Brightness4Icon /> : <Brightness7Icon />,
       name: `switch to ${colorMode === "light" ? "dark mode" : "light mode"}`,

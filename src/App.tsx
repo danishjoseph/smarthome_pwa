@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AddNewDevice from "./pages/AddNewDevice";
+import ConfigureDevices from "./pages/ConfigureDevices";
 import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
 
@@ -34,7 +34,7 @@ const App = (props: Props) => {
           <Navigation onUpdateTheme={onThemeUpdate} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/add" element={<AddNewDevice />} />
+            <Route path="/configure" element={<ConfigureDevices />} />
             <Route
               path="*"
               element={

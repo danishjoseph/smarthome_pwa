@@ -1,4 +1,4 @@
-import { Modal, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import DeviceList from "./DeviceList";
 import { Device } from "./types";
 import { useAppSelector } from "../hooks";
-import FavouritesModal from "./FavouritesModal";
+import ModalBox from "./ModalBox";
 
 const useStyles = makeStyles({
   iconHover: {
@@ -23,21 +23,6 @@ const useStyles = makeStyles({
     },
   },
 });
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  maxHeight: "50%",
-  borderRadius: 1,
-  border: 1,
-  p: 2,
-  color: "text.primary",
-  borderColor: "primary.main",
-  bgcolor: "background.paper",
-} as const;
 
 interface Props {}
 
@@ -72,7 +57,12 @@ const Favourites = (props: Props) => {
           })
         )}
       </div>
-      <FavouritesModal showModal={open} onClose={() => setOpen(false)} />
+      <ModalBox showModal={open} onClose={() => setOpen(false)}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Add or Remove
+        </Typography>
+        <DeviceList />
+      </ModalBox>
     </Box>
   );
 };

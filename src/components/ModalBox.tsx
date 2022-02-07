@@ -1,6 +1,4 @@
-import { Box, Modal, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import DeviceList from "./DeviceList";
+import { Box, Modal } from "@mui/material";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -20,9 +18,10 @@ const style = {
 interface Props {
   showModal: boolean;
   onClose: () => void;
+  children: React.ReactNode
 }
 
-const FavouritesModal = ({ showModal = false, onClose }: Props) => {
+const ModalBox = ({ showModal = false, onClose,children }: Props) => {
   return (
     <Modal
       open={showModal}
@@ -31,13 +30,10 @@ const FavouritesModal = ({ showModal = false, onClose }: Props) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add or Remove
-        </Typography>
-        <DeviceList />
+        {children}
       </Box>
     </Modal>
   );
 };
 
-export default FavouritesModal;
+export default ModalBox;

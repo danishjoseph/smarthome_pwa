@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import deviceInfoReducer from "./deviceInfo";
 import deviceReducer from "./deviceStore";
 import mqttReducer from './mqttStore'
 
 export const store = configureStore({
   reducer: {
     devices: deviceReducer,
-    mqtt: mqttReducer
+    mqtt: mqttReducer,
+    deviceInfo: deviceInfoReducer,
   },
 });
 
