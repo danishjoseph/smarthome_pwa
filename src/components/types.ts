@@ -22,3 +22,4 @@ export type DeviceDetails = {
 export type DeviceTree = {
   [key: string]: Device[];
 };
+export type CameraFeed = { name: string; url: string };

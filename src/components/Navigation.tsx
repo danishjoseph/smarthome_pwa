@@ -6,6 +6,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
+import SwitchVideoIcon from '@mui/icons-material/SwitchVideo';
 import HomeIcon from "@mui/icons-material/Home";
 import { useLocation, useNavigate } from "react-router-dom";
 type ColorMode = "light" | "dark";
@@ -26,6 +27,11 @@ const Navigation = (props: Props) => {
       icon: <SettingsInputComponentIcon />,
       name: "Configure Device",
       id: "/configure",
+    },
+    {
+      icon: <SwitchVideoIcon />,
+      name: "Camera feeds",
+      id: "/camerafeed",
     },
     {
       icon: colorMode === "light" ? <Brightness4Icon /> : <Brightness7Icon />,

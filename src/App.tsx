@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ConfigureDevices from "./pages/ConfigureDevices";
 import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
+import CameraFeed from './pages/CameraFeed'
 
 interface Props {}
 type ColorMode = "light" | "dark";
@@ -35,6 +36,7 @@ const App = (props: Props) => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/configure" element={<ConfigureDevices />} />
+            <Route path="/camerafeed" element={<CameraFeed/>} />
             <Route
               path="*"
               element={
